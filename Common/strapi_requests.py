@@ -2,9 +2,8 @@ import os
 
 import requests
 
-endpoint = 'https://map-api.ekaterinburg.io/api/design-codes'
 
-def put_object(bearer: str, data: str, id_obj: str) -> dict:
+def put_object(bearer: str, data: str, id_obj: str, endpoint: str) -> dict:
     headers = dict([
         ('Accept', 'application/json'),
         ('Authorization', f'Bearer {bearer}'),
@@ -23,17 +22,19 @@ def strapi_login():
     response = requests.post(f'http://51.178.191.76:1337/api/auth/local', json=data)
     return response.json()
 
-def post_new_object(bearer: str, data: str) -> dict:
+
+def post_new_object(bearer: str, data: str, endpoint: str) -> dict:
     headers = dict([
         ('Accept', 'application/json'),
         ('Authorization', f'Bearer {bearer}'),
         ('Content-Type', 'application/json')
     ])
-    response = requests.post(f'{endpoint}', json={"data": data},
+    response = requests.post(endpoint, json={"data": data},
                              headers=headers)
     return response.json()
 
-def get_object(bearer: str, data: str) -> dict:
+
+def get_object(bearer: str, data: str, endpoint: str) -> dict:
     headers = dict([
         ('Accept', 'application/json'),
         ('Authorization', f'Bearer {bearer}'),
