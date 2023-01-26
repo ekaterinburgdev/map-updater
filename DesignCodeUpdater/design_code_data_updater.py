@@ -5,8 +5,7 @@ from DesignCodeUpdater.strapi_requests import put_object, get_object, strapi_log
 response = requests.get('https://map.ekaterinburg.design/api/map')
 data = response.json()
 for code_object in data:
-    code_object['geometry'] = {}
-    code_object['geometry']['coordinates'] = [code_object['coords'][1], code_object['coords'][0]]
+    code_object['geometry'] = {'type': 'Point', 'coordinates': [code_object['coords'][1], code_object['coords'][0]]}
     code_object['geometry']['type'] = 'Point'
     code_object['id_string'] = code_object['id']
     del code_object['id']
