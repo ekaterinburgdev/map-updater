@@ -3,7 +3,7 @@ import json
 import requests
 from datetime import datetime
 
-from strapi_requests import post_new_dtp_object, strapi_login
+from Common.strapi_requests import strapi_login, post_new_object
 
 
 def download_file():
@@ -12,6 +12,7 @@ def download_file():
 
 
 def parse_dtp(mm=None, yyyy=None, filename=None):
+    endpoint = 'https://map.ekaterinburg.design/api/dtps'
     token = strapi_login()['jwt']
     object_to_file = []
     if mm is None:
@@ -30,7 +31,7 @@ def parse_dtp(mm=None, yyyy=None, filename=None):
         filter_data(res, yyyy, mm, object_to_file)
 
     for obj in object_to_file:
-        res = post_new_dtp_object(token, obj)
+        res = post_new_object(token, obj, endpoint)
 
 
 def filter_data(all_dtps, yyyy, mm, object_to_file):
