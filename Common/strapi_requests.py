@@ -1,6 +1,8 @@
-import os
-
 import requests
+from dotenv import dotenv_values
+
+
+config = dotenv_values(".env")
 
 
 def put_object(bearer: str, data: str, id_obj: str, endpoint: str) -> dict:
@@ -16,8 +18,8 @@ def put_object(bearer: str, data: str, id_obj: str, endpoint: str) -> dict:
 
 def strapi_login():
     data = {
-        "identifier": os.environ.get('MAP-USER-LOGIN'),
-        "password": os.environ.get('MAP-USER-PASSWORD')
+        "identifier": config['LOGIN'],
+        "password": config['PASSWORD']
     }
     response = requests.post(f'http://51.178.191.76:1337/api/auth/local', json=data)
     return response.json()
